@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../firebase";
 
+//Create Context
 const AuthContext = React.createContext();
 
-//Hook to use the context
+//Hook to use the context state and fn on components
 export function useAuth() {
   return useContext(AuthContext);
 }
@@ -31,7 +32,6 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  //review this const implementation
   const value = {
     currentUser,
     signup,
