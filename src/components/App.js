@@ -7,6 +7,7 @@ import Login from "./Login";
 import ResetPassword from "./ResetPassword";
 import Signup from "./Signup";
 import Dashboard from "./Dashboard";
+import NewTenant from "./NewTenant";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <AuthProvider>
             <Switch>
               <PrivateRoute exact path="/" component={Dashboard} />
+              <PrivateRoute path="/new-tenant" component={NewTenant} />
               <PrivateRoute path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
               <Route path="/reset-password" component={ResetPassword} />

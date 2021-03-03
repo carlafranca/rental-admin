@@ -26,7 +26,7 @@ function Dashboard() {
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email: </strong>
           {currentUser.email}
-          <Link to="/create-tenant" className="btn btn-primary w-100 mt-3">
+          <Link to="/new-tenant" className="btn btn-primary w-100 mt-3">
             Create New Tenant
           </Link>
         </Card.Body>
