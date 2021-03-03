@@ -13,10 +13,14 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  const signIn = (email, password) =>
+  const login = (email, password) =>
     auth.signInWithEmailAndPassword(email, password);
 
-  const signUp = (email, password) =>
+  const resetPassword = (email) => auth.sendPasswordResetEmail(email);
+
+  const logout = () => auth.signOut();
+
+  const signup = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
 
   useEffect(() => {
@@ -30,8 +34,10 @@ export function AuthProvider({ children }) {
   //review this const implementation
   const value = {
     currentUser,
-    signUp,
-    signIn,
+    signup,
+    login,
+    logout,
+    resetPassword,
   };
 
   return (

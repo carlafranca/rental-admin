@@ -1,14 +1,16 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Signup() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const emailRef = useRef();
   const pswRef = useRef();
   const confirmPswRef = useRef();
-  const { signUp } = useAuth();
+  const { signup } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,9 +22,10 @@ function Signup() {
     try {
       setError("");
       setLoading(true);
-      await signUp(emailRef.current.value, pswRef.current.value);
-    } catch {
-      setError("Fail to Login");
+      await signup(emailRef.current.value, pswRef.current.value);
+      history.push("/");
+    } catch (err) {
+      setError(`Fail to create an account ${err.message}`);
     }
     setLoading(false);
   };
@@ -31,8 +34,8 @@ function Signup() {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Log in</h2>
-          {error && <Alert variant="danger">Error</Alert>}
+          <h2 className="text-center mb-4">Sign Up</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
@@ -47,13 +50,13 @@ function Signup() {
               <Form.Control type="password" ref={confirmPswRef} required />
             </Form.Group>
             <Button disable={loading} type="submit" className="w-100">
-              Login
+              Sign Up
             </Button>
           </Form>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Already have an account? Login
+        Already have an account? <Link to="/login">Log In</Link>
       </div>
     </>
   );

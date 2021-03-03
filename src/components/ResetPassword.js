@@ -1,26 +1,26 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function Login() {
+function ResetPassword() {
+  const emailRef = useRef();
+  const { resetPassword } = useAuth();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
-  const emailRef = useRef();
-  const pswRef = useRef();
-  const { login } = useAuth();
+  const [message, setMessage] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     //review the try/catch
     try {
+      setMessage("");
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, pswRef.current.value);
-      history.push("/");
+      await resetPassword(emailRef.current.value);
+      setMessage("Check your inbox for instructions");
     } catch (err) {
-      setError(`Fail to Login ${err.message}`);
+      setError(`Fail to reset password ${err.message}`);
     }
     setLoading(false);
   };
@@ -29,28 +29,25 @@ function Login() {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
+          <h2 className="text-center mb-4">Password Reset</h2>
           {error && <Alert variant="danger">{error}</Alert>}
+          {message && <Alert variant="sucess">{message}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
-            <Form.Group id="psw">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={pswRef} required />
-            </Form.Group>
             <Button disable={loading} type="submit" className="w-100">
-              Log In
+              Reset Password
             </Button>
           </Form>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Forgot Password? <Link to="/reset-password">Reset Password</Link>
+        <Link to="/loggin">Login</Link>
       </div>
     </>
   );
 }
 
-export default Login;
+export default ResetPassword;
