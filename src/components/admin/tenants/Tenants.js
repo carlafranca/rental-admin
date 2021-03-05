@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDash } from "../../../context/DashboardContext";
-import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import TenantList from "./TenantList";
 
 function Tenants() {
@@ -32,7 +32,9 @@ function Tenants() {
 
   return (
     <>
-      <Button>Crie Novo Locatário</Button>
+      <Link className="btn btn-primary btn-sm" to="/dashboard/new-tenant">
+        Crie Novo Locatário
+      </Link>
       {isLoading && (
         <>
           <h2 className="mt-4 mb-3">Lista de Locatários</h2>
