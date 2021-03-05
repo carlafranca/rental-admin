@@ -1,21 +1,18 @@
 import React, { useState } from "react";
-import {
-  Route,
-  Switch,
-  Link,
-  useHistory,
-  useRouteMatch,
-} from "react-router-dom";
-import { Container, Row, Col, Card, Button, Alert } from "react-bootstrap";
+import { Switch, Link, useHistory, useRouteMatch } from "react-router-dom";
+import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import PrivateRoute from "../PrivateRoute";
-import PageWrap from "./PageWrap";
+import Flats from "./flats/Flats";
+import FlatUpdate from "./flats/FlatUpdate";
+import NewTenant from "./NewTenant";
+import Tenants from "./tenants/Tenants";
 
 function Dashboard() {
   let { path, url } = useRouteMatch();
+  const history = useHistory();
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
-  const history = useHistory();
 
   const handleLogout = async () => {
     setError("");
@@ -58,17 +55,26 @@ function Dashboard() {
                 Apartamentos
               </Link>
               <Link to={`${url}/tenants`} className="list-group-item">
-                Tenants
+                Locatários
               </Link>
               <Link to={`${url}/new-tenant`} className="list-group-item">
-                Create New Tenant
+                Criar Novo Locatário
               </Link>
             </ul>
             <Col lg="9">
               {error && <Alert variant="danger">{error}</Alert>}
-
               <Switch>
-                <PrivateRoute path={`${path}/:topicId`} component={PageWrap} />
+                <PrivateRoute exact path={`${path}/`} component={Flats} />
+                <PrivateRoute path={`${path}/flats`} component={Flats} />
+                <PrivateRoute path={`${path}/tenants`} component={Tenants} />
+                <PrivateRoute
+                  path={`${path}/new-tenant`}
+                  component={NewTenant}
+                />
+                <PrivateRoute
+                  path={`${path}/flat-update`}
+                  component={FlatUpdate}
+                />
               </Switch>
             </Col>
           </Row>

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext";
+import { DashProvider } from "../context/DashboardContext";
 import PrivateRoute from "./PrivateRoute";
 import Login from "./users/Login";
 import ResetPassword from "./users/ResetPassword";
@@ -12,15 +13,17 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <Switch>
-          <Route exact path="/" component={Home} />
+        <DashProvider>
+          <Switch>
+            <Route exact path="/" component={Home} />
 
-          <Route path="/login" component={Login} />
-          <Route path="/reset-password" component={ResetPassword} />
-          <PrivateRoute path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <Route path="/reset-password" component={ResetPassword} />
+            <PrivateRoute path="/signup" component={Signup} />
 
-          <PrivateRoute path="/dashboard" component={Dashboard} />
-        </Switch>
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+          </Switch>
+        </DashProvider>
       </AuthProvider>
     </Router>
   );
