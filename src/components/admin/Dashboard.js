@@ -5,7 +5,8 @@ import { useAuth } from "../../context/AuthContext";
 import PrivateRoute from "../PrivateRoute";
 import Flats from "./flats/Flats";
 import FlatUpdate from "./flats/FlatUpdate";
-import NewTenant from "./NewTenant";
+import NewTenant from "./tenants/NewTenant";
+import EditTenant from "./tenants/EditTenant";
 import Tenants from "./tenants/Tenants";
 
 function Dashboard() {
@@ -70,6 +71,10 @@ function Dashboard() {
                 <PrivateRoute
                   path={`${path}/new-tenant`}
                   component={NewTenant}
+                />
+                <PrivateRoute
+                  path={`${path}/edit-tenant`}
+                  component={EditTenant}
                 />
                 <PrivateRoute
                   path={`${path}/flat-update`}
