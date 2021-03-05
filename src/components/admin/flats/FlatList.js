@@ -1,9 +1,9 @@
 import React from "react";
 import { Alert } from "react-bootstrap";
+import EditIcon from "@material-ui/icons/Edit";
+import IconButton from "@material-ui/core/IconButton";
 
 import moment from "moment";
-import EditIcon from "@material-ui/icons/Edit";
-import Tooltip from "@material-ui/core/Tooltip";
 import { useHistory } from "react-router-dom";
 
 function FlatList({ isLoading, flats }) {
@@ -57,10 +57,14 @@ function FlatList({ isLoading, flats }) {
                       {" | "} Phone: {flat.tenantInfo.cellPhone}
                     </p>
 
-                    <EditIcon
+                    <IconButton
+                      aria-label="edite apartamentos"
                       onClick={edit}
                       style={{ marginLeft: "auto", cursor: "pointer" }}
-                    />
+                      title="Edit"
+                    >
+                      <EditIcon />
+                    </IconButton>
                   </>
                 )}
               </div>

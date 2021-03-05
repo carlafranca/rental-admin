@@ -13,7 +13,6 @@ function Flats() {
 
     let flatsData = [];
 
-    //fix order
     function flatsDocs() {
       getFlats().then((docs) => {
         docs.forEach((doc) => {
@@ -50,9 +49,8 @@ function Flats() {
 
   return (
     <>
-      {isLoading}
       <FlatsBadge />
-      <FlatList isLoading={isLoading} flats={flats} />
+      {isLoading && <FlatList isLoading={isLoading} flats={flats} />}
     </>
   );
 }
